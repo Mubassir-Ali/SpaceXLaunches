@@ -1,7 +1,9 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import "./App.css";
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 import {Launch} from './Components/Launch'
 import Launches from './Components/Launches'
+
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
@@ -11,10 +13,15 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div className="App">
+    <Router>
+    <div className="App">
         <h2>SpaceX Launches</h2>
-        <Launch/>
+        <Route exact path="/" component={Launches} />
+        <Route exact path="/launch/:flight_number" component={Launches} />
       </div>
+
+    </Router>
+      
     </ApolloProvider>
   );
 }
